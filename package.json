@@ -1,0 +1,10 @@
+{
+  "name": "merssi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jacob Berglund",
+  "license": "MIT",
+  "dependencies": {
+    "rss-parser": "^3.9.0"
+  }
+}
