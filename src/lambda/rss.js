@@ -1,5 +1,5 @@
-import { getRSS } from "../rss/index";
-import { formatRSS } from "../rss/format";
+import { getRSS } from "./rss/index";
+import { formatRSS } from "./rss/format";
 
 const feedsList = [
   "https://tympanus.net/codrops/feed/",
