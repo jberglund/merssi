@@ -140,7 +140,7 @@ form {
   justify-self: center;
 }
 
-.rss-list::after {
+.rss-list:empty::after {
   font-size: 3rem;
   width: 2em;
   height: 2em;
