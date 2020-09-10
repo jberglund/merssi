@@ -7432,7 +7432,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.formatRSS = formatRSS;
 function formatRSS(list) {
-  console.log(list);
   let result = list.flatMap(feed => {
     return feed.items.map(item => {
       const { title, link, isoDate, categories, contentSnippet } = item;

@@ -1,6 +1,9 @@
 import "file-loader?name=styles.css!./styles.css";
 
-const API_ENDPOINT = window.location + ".netlify/functions/rss";
+const API_ENDPOINT =
+  window.location.origin +
+  "/.netlify/functions/get_rss" +
+  window.location.search;
 
 (async () => {
   const feed = await fetch(API_ENDPOINT, {
