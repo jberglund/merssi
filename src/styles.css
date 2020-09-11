@@ -1,33 +1,70 @@
+/* @import url("https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap");
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 :root {
-  --baseFontSize: 18px;
-  --fontFamilySans: Roboto, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-  --fontFamilyMono: "Roboto Mono", monospace;
-  --textColor: rgba(14, 30, 37, 0.87);
-  --borderColor: #e9ebeb;
-  --accentColor: #00ad9f;
+  --color-blue: #4263eb;
+  --color-light: #dde2e5;
+
+  --state-disabled: var(--color-light);
+  --state-focus: var(--color-blue);
+
+  --global-border-radius: 0.35rem;
+  --global-secondary-border-color: #acb5bd;
+  --global-secondary-text-color: #364d61;
+
+  --global-button-background: #454545;
+  --global-button-color: white;
+
+  --global-button-hover-background: red;
+  --global-button-hover-color: white;
+
+  --font-size-min: 16;
+  --font-size-max: 24;
+  --viewport-min: 400;
+  --viewport-max: 1500;
+
+  --default-border: 2px solid
+    var(--state-override-color, var(--global-secondary-border-color));
+  --default-border-radius: 0.35rem;
+}
+
+html {
+  font-family: "Work Sans", sans-serif;
+  font-size: calc(
+    (var(--font-size-min) * 1px) + (var(--font-size-max) - var(--font-size-min)) *
+      (
+        (100vw - (var(--viewport-min) * 1px)) /
+          (var(--viewport-max) - var(--viewport-min))
+      )
+  );
 }
 
 body {
-  font-family: var(--fontFamilySans);
-  font-size: var(--baseFontSize);
   line-height: 1.5;
-  max-width: 40em;
-  padding: 1em;
-  margin: auto;
-  background: #e8e8dd;
+  padding: 0;
+  margin: 0;
+  background: #e6ecef;
   color: var(--textColor);
-  counter-reset: example;
+
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5 {
   line-height: 1.2;
   margin-top: 0em;
   margin-bottom: 0;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--global-secondary-text-color);
 }
 
 h1 {
@@ -36,12 +73,20 @@ h1 {
 }
 
 h2 {
-  font-size: 1.375em;
-  margin-top: 3em;
+  font-size: 1.375rem;
+  margin-top: 3rem;
 }
 
 h3 {
-  font-size: 1.325em;
+  font-size: 1.325rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+}
+
+h5 {
+  font-size: 1rem;
 }
 
 p {
@@ -51,14 +96,6 @@ p {
 a {
   color: inherit;
   text-decoration: underline;
-}
-
-article {
-  counter-increment: example;
-}
-
-article h2::before {
-  content: counter(example) ". ";
 }
 
 ul {
@@ -72,46 +109,135 @@ ol {
   counter-reset: step;
 }
 
-ol li::before {
-  counter-increment: step;
-  content: counter(step) ". ";
-  float: left;
-  margin-right: 0.3em;
+a {
+  font-weight: 400;
+  font-variation-settings: "wght" 400;
+  transition: all 300ms ease;
+}
+a:hover {
+  font-variation-settings: "wght" 500;
 }
 
 input {
-  box-sizing: border-box;
-  width: 100%;
-  margin-top: 0.5em;
-  padding: 0 0.5em;
-  height: 2.5em;
-  line-height: 2.5;
-  border: 2px solid var(--borderColor);
-  border-radius: 4px;
-  font-weight: bold;
+  border: 2px solid
+    var(--state-override-color, var(--global-secondary-border-color));
+  /* padding: 0.85rem 1rem; */
+  font: inherit;
+  font-size: 1rem;
+  border-radius: var(--global-border-radius, 0.35rem);
+}
+
+.radio__container {
+  color: var(--global-secondary-text-color);
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-template-areas: "input label";
+  grid-gap: 0.4em;
+  align-items: center;
+  cursor: pointer;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  --size: 0.6em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  border: 0.2em solid white;
+  box-shadow: 0 0 0 0.08em
+    var(--override-color-border, var(--global-secondary-border-color));
+  background-color: var(--override-color-center, white);
+  display: inline-block;
+  height: var(--size);
+  width: var(--size);
+
+  z-index: 2;
+  grid-area: input;
+
+  transition: all 100ms ease;
+}
+
+input[type="radio"] {
+  border-radius: 100%;
+}
+input[type="checkbox"] {
+  border-radius: calc(var(--global-border-radius) / 2);
+}
+
+input[type="radio"]:checked,
+input[type="checkbox"]:checked {
+  --override-color-center: blue;
+  --override-color-border: blue;
+  box-shadow: 0 0 0 0.1em
+    var(--override-color-border, var(--global-secondary-border-color));
+}
+
+input[type="radio"]:hover,
+input[type="radio"]:focus,
+input[type="checkbox"]:hover,
+input[type="checkbox"]:focus {
+  --override-color-border: var(--global-secondary-border-color);
+  outline: none;
+}
+
+input[type="radio"]:checked:focus,
+input[type="radio"]:checked:hover,
+input[type="checkbox"]:checked:focus,
+input[type="checkbox"]:checked:hover {
+  --override-color-center: blue;
+  --override-color-border: blue;
+}
+
+input[type="radio"]:not(:disabled):hover + .radio__label,
+input[type="radio"]:not(:disabled):focus + .radio__label,
+input[type="radio"]:not(:disabled):checked + .radio__label,
+input[type="checkbox"]:not(:disabled):hover + .radio__label,
+input[type="checkbox"]:not(:disabled):focus + .radio__label,
+input[type="checkbox"]:not(:disabled):checked + .radio__label {
+  color: black;
+}
+
+input[type="radio"]:not(:disabled):focus + .radio__label,
+input[type="checkbox"]:not(:disabled):focus + .radio__label {
+  text-decoration: underline;
+}
+
+input[type="radio"]:disabled,
+input[type="radio"]:disabled + .radio__label,
+input[type="checkbox"]:disabled,
+input[type="checkbox"]:disabled + .radio__label {
+  text-decoration: line-through;
+  --override-color-center: var(--state-disabled);
+  --override-color-border: var(--global-secondary-border-color);
+  cursor: not-allowed;
+}
+
+.radio__label {
+  color: var(--global-secondary-text-color);
 }
 
 button,
 .button {
-  box-sizing: border-box;
+  --local-background: var(--button-background, var(--global-button-background));
+  --local-text-color: var(--button-color, var(--global-button-color));
+  --local-border-color: var(--button-border-color, var(--local-background));
+  color: var(--local-text-color, var(--global-button-color));
+  background-color: var(--local-background, var(--global-button-background));
+  border: 2px solid var(--local-border-color, var(--global-button-background));
+  border-radius: var(--global-border-radius);
   display: inline-block;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  border: 0;
-  background: var(--accentColor);
-  color: white;
-  border-radius: 4px;
-  font-size: 1em;
-  font-weight: 500;
-  height: 2.5em;
-  line-height: 2.5;
-  padding: 0 1em;
-  min-width: 10em;
-  text-align: center;
+  padding: 0.3em 0.8em;
+  font: inherit;
   cursor: pointer;
-  outline: none;
-  text-decoration: none;
-  transform: translateY(0);
-  transition: all 0.15s ease;
+}
+
+.button--primary {
+  --button-background: blue;
+  --button-color: white;
+  --button-hover-background: transparent;
+  --button-hover-color: var(--button-background);
+  --button-hover-border-color: var(--button-background);
 }
 
 button:focus,
@@ -124,12 +250,57 @@ form {
   max-width: 20em;
 }
 
+.layout {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr minmax(max-content, 500px);
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.rss-feeds {
+  font-size: 0.8rem;
+  padding: 2rem;
+  background-color: white;
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: max-content;
+  grid-gap: 0.5em;
+
+  position: sticky;
+  top: 0;
+
+  transform: translateX(100%);
+  transition: transform 300ms ease;
+  will-change: transform;
+}
+.rss-feeds[data-toggled="true"] {
+  transform: translateX(0%);
+}
+
+.rss-feeds__toggle {
+  position: absolute;
+  right: 100%;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  margin: 1em;
+  --button-background: var(--color-blue);
+}
+
 .rss-list {
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: max-content;
   grid-gap: 1.5rem;
   min-height: 50vh;
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 2rem;
+
+  color: var(--global-secondary-text-color);
 }
 
 .rss-list::before,
@@ -169,27 +340,13 @@ form {
   }
 }
 
-.rss-list::before {
-  font-weight: bold;
-  padding: 5rem;
-}
-
-.rss-list:empty::before {
-  content: "👋 Bonne journée";
-  font-size: 2rem;
-}
-
-.rss-list::before {
-  content: "meRRSi, monsieur!";
-  font-size: 2rem;
-}
-
 .rss-link {
-  padding: 2rem 2rem 2rem 4rem;
+  padding: 1.2rem 1.2rem 1.2rem 3rem;
   display: grid;
+  font-size: 0.7rem;
   grid-template-columns: 1fr max-content;
   grid-gap: 1rem 2rem;
-  background-color: #f5f3ea;
+  background-color: #fff;
   border-radius: 5px;
   text-decoration: none;
   box-shadow: 0 1px 2.2px -20px rgba(0, 0, 0, 0.02),
