@@ -19,7 +19,6 @@ async function getSomeLinksYo(set) {
       set(result.body);
     })
     .catch((error) => ({ statusCode: 422, body: String(error) }));
-
   return await feed;
 }
 
@@ -27,7 +26,9 @@ const List = () => {
   const [rssList, setRssList] = useState([]);
 
   useEffect(() => {
-    getSomeLinksYo(setRssList);
+    if (!!window.location.search) {
+      getSomeLinksYo(setRssList);
+    }
   }, []);
 
   return (

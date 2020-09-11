@@ -1,14 +1,8 @@
 import React, { useState } from "react";
+import * as Form from "./Forms";
 
-const feeds = [
-  { title: "dev.to", url: "https://dev.to/feed" },
-  { title: "Smashing Magazine", url: "https://www.smashingmagazine.com/feed" },
-  { title: "A List Apart", url: "https://alistapart.com/main/feed/" },
-  { title: "Sidebar.io", url: "https://sidebar.io/feed.xml" },
-];
-
-const Feeds = () => {
-  const [toggled, setToggled] = useState(false);
+const Feeds = ({ list }) => {
+  const [toggled, setToggled] = useState(true);
 
   function handleClick() {
     setToggled(!toggled);
@@ -19,18 +13,32 @@ const Feeds = () => {
       <button className="rss-feeds__toggle" onClick={() => handleClick()}>
         Edit feeds
       </button>
-      <h4>List of RSS feeds.</h4>
-      {feeds.map(({ title, url }) => (
-        <label className="radio__container" key={title}>
-          <input
-            className="radio__input"
+      <div className="form">
+        <Form.FormGroup>
+          <Form.FormGroupHeading>
+            <span className="deemphasis">
+              Young adventurer, please, feel free to add some feeds 🧙‍♂️
+            </span>
+          </Form.FormGroupHeading>
+        </Form.FormGroup>
+        <Form.FormGroup>
+          <Form.RadioInput
+            name="Pre-defined options!"
+            choices={list}
+            valueKey="url"
+            labelKey="title"
+            checkedKey="checked"
             type="checkbox"
-            name="Options"
-            value={url}
           />
-          <span className="radio__label">{title}</span>
-        </label>
-      ))}
+        </Form.FormGroup>
+        <Form.FormGroup>
+          <Form.Input label="Name" />
+          {/* <label className="form">
+            <div className="form__label">Add your own</div>
+            <input type="text" name="add" id="" />
+          </label> */}
+        </Form.FormGroup>
+      </div>
     </div>
   );
 };
